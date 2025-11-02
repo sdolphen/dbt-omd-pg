@@ -7,4 +7,4 @@ default:
       http_path: /sql/1.0/warehouses/645d6cc8044bd264
       token: "{{ env_var('DBT_DATABRICKS_TOKEN') }}"
       schema: dbt-omd
-      threads: 4
+      threads: 1
