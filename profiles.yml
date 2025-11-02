@@ -3,10 +3,8 @@ default:
   outputs:
     dev:
       type: databricks
-      host: <your-databricks-host>
-      http_path: <your-databricks-http-path>
-      token: <your-databricks-personal-access-token>
-      schema: <your-schema-name>
-      database: <your-database-name>
-      threads: 1
-      catalog: hive_metastore
+      host: adb-3020218199835395.15.azuredatabricks.net
+      http_path: /sql/1.0/warehouses/645d6cc8044bd264
+      token: "{{ env_var('DBT_DATABRICKS_TOKEN') }}"
+      schema: dbt-omd
+      threads: 4
