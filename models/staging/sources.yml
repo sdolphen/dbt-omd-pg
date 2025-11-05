@@ -1,0 +1,339 @@
+version: 2
+
+sources:
+  - name: f1
+    description: Formula 1 racing dataset containing historical race, driver, constructor, and circuit information
+    database: your_database_name  # Update this with your Databricks database name
+    schema: your_schema_name      # Update this with your Databricks schema name
+    tables:
+      - name: circuits
+        description: Formula 1 circuit information including location and geographical coordinates
+        columns:
+          - name: circuitid
+            description: Unique identifier for the circuit
+            tests:
+              - unique
+              - not_null
+          - name: circuitref
+            description: Circuit reference code
+          - name: name
+            description: Full name of the circuit
+          - name: location
+            description: City where the circuit is located
+          - name: country
+            description: Country where the circuit is located
+          - name: lat
+            description: Latitude coordinate of the circuit
+          - name: lng
+            description: Longitude coordinate of the circuit
+          - name: alt
+            description: Altitude of the circuit in meters
+          - name: url
+            description: Wikipedia URL for the circuit
+
+      - name: constructor_results
+        description: Constructor results for each race
+        columns:
+          - name: constructorresultsid
+            description: Unique identifier for the constructor result
+            tests:
+              - unique
+              - not_null
+          - name: raceid
+            description: Foreign key to races table
+          - name: constructorid
+            description: Foreign key to constructors table
+          - name: points
+            description: Points earned by the constructor in this race
+          - name: status
+            description: Status of the constructor result
+
+      - name: constructor_standings
+        description: Constructor championship standings after each race
+        columns:
+          - name: constructorstandingsid
+            description: Unique identifier for the constructor standing
+            tests:
+              - unique
+              - not_null
+          - name: raceid
+            description: Foreign key to races table
+          - name: constructorid
+            description: Foreign key to constructors table
+          - name: points
+            description: Cumulative points in the championship
+          - name: position
+            description: Position in the championship
+          - name: positiontext
+            description: Text representation of position
+          - name: wins
+            description: Number of wins up to this point
+
+      - name: constructors
+        description: Constructor (team) information
+        columns:
+          - name: constructorid
+            description: Unique identifier for the constructor
+            tests:
+              - unique
+              - not_null
+          - name: constructorref
+            description: Constructor reference code
+          - name: name
+            description: Full name of the constructor
+          - name: nationality
+            description: Nationality of the constructor
+          - name: url
+            description: Wikipedia URL for the constructor
+
+      - name: driver_standings
+        description: Driver championship standings after each race
+        columns:
+          - name: driverstandingsid
+            description: Unique identifier for the driver standing
+            tests:
+              - unique
+              - not_null
+          - name: raceid
+            description: Foreign key to races table
+          - name: driverid
+            description: Foreign key to drivers table
+          - name: points
+            description: Cumulative points in the championship
+          - name: position
+            description: Position in the championship
+          - name: positiontext
+            description: Text representation of position
+          - name: wins
+            description: Number of wins up to this point
+
+      - name: drivers
+        description: Driver information including personal details
+        columns:
+          - name: driverid
+            description: Unique identifier for the driver
+            tests:
+              - unique
+              - not_null
+          - name: driverref
+            description: Driver reference code
+          - name: number
+            description: Permanent driver number
+          - name: code
+            description: Three-letter driver code
+          - name: forename
+            description: Driver's first name
+          - name: surname
+            description: Driver's last name
+          - name: dob
+            description: Driver's date of birth
+          - name: nationality
+            description: Driver's nationality
+          - name: url
+            description: Wikipedia URL for the driver
+
+      - name: lap_times
+        description: Lap times for each driver in each race
+        columns:
+          - name: raceid
+            description: Foreign key to races table
+          - name: driverid
+            description: Foreign key to drivers table
+          - name: lap
+            description: Lap number
+          - name: position
+            description: Position at the end of this lap
+          - name: time
+            description: Lap time in MM:SS.mmm format
+          - name: milliseconds
+            description: Lap time in milliseconds
+
+      - name: pit_stops
+        description: Pit stop information for each race
+        columns:
+          - name: raceid
+            description: Foreign key to races table
+          - name: driverid
+            description: Foreign key to drivers table
+          - name: stop
+            description: Pit stop number for this driver in this race
+          - name: lap
+            description: Lap number when pit stop occurred
+          - name: time
+            description: Time of day when pit stop occurred
+          - name: duration
+            description: Duration of the pit stop in seconds
+          - name: milliseconds
+            description: Duration of the pit stop in milliseconds
+
+      - name: qualifying
+        description: Qualifying session results
+        columns:
+          - name: qualifyid
+            description: Unique identifier for the qualifying result
+            tests:
+              - unique
+              - not_null
+          - name: raceid
+            description: Foreign key to races table
+          - name: driverid
+            description: Foreign key to drivers table
+          - name: constructorid
+            description: Foreign key to constructors table
+          - name: number
+            description: Driver number
+          - name: position
+            description: Final qualifying position
+          - name: q1
+            description: Q1 qualifying time
+          - name: q2
+            description: Q2 qualifying time
+          - name: q3
+            description: Q3 qualifying time
+
+      - name: races
+        description: Race information including date, time, and associated circuit
+        columns:
+          - name: raceid
+            description: Unique identifier for the race
+            tests:
+              - unique
+              - not_null
+          - name: year
+            description: Year of the race
+          - name: round
+            description: Round number in the season
+          - name: circuitid
+            description: Foreign key to circuits table
+          - name: name
+            description: Name of the Grand Prix
+          - name: date
+            description: Date of the race
+          - name: time
+            description: Start time of the race
+          - name: url
+            description: Wikipedia URL for the race
+          - name: fp1_date
+            description: Free Practice 1 date
+          - name: fp1_time
+            description: Free Practice 1 time
+          - name: fp2_date
+            description: Free Practice 2 date
+          - name: fp2_time
+            description: Free Practice 2 time
+          - name: fp3_date
+            description: Free Practice 3 date
+          - name: fp3_time
+            description: Free Practice 3 time
+          - name: quali_date
+            description: Qualifying date
+          - name: quali_time
+            description: Qualifying time
+          - name: sprint_date
+            description: Sprint race date
+          - name: sprint_time
+            description: Sprint race time
+
+      - name: results
+        description: Race results for each driver
+        columns:
+          - name: resultid
+            description: Unique identifier for the result
+            tests:
+              - unique
+              - not_null
+          - name: raceid
+            description: Foreign key to races table
+          - name: driverid
+            description: Foreign key to drivers table
+          - name: constructorid
+            description: Foreign key to constructors table
+          - name: number
+            description: Driver number
+          - name: grid
+            description: Starting grid position
+          - name: position
+            description: Final position
+          - name: positiontext
+            description: Text representation of position
+          - name: positionorder
+            description: Numeric order of finish
+          - name: points
+            description: Points earned in this race
+          - name: laps
+            description: Number of laps completed
+          - name: time
+            description: Total race time
+          - name: milliseconds
+            description: Total race time in milliseconds
+          - name: fastestlap
+            description: Fastest lap number
+          - name: rank
+            description: Rank of fastest lap
+          - name: fastestlaptime
+            description: Fastest lap time
+          - name: fastestlapspeed
+            description: Fastest lap speed in km/h
+          - name: statusid
+            description: Foreign key to status table
+
+      - name: seasons
+        description: Formula 1 seasons
+        columns:
+          - name: year
+            description: Season year
+            tests:
+              - unique
+              - not_null
+          - name: url
+            description: Wikipedia URL for the season
+
+      - name: sprint_results
+        description: Sprint race results for each driver
+        columns:
+          - name: resultid
+            description: Unique identifier for the sprint result
+            tests:
+              - unique
+              - not_null
+          - name: raceid
+            description: Foreign key to races table
+          - name: driverid
+            description: Foreign key to drivers table
+          - name: constructorid
+            description: Foreign key to constructors table
+          - name: number
+            description: Driver number
+          - name: grid
+            description: Starting grid position
+          - name: position
+            description: Final position
+          - name: positiontext
+            description: Text representation of position
+          - name: positionorder
+            description: Numeric order of finish
+          - name: points
+            description: Points earned in this sprint race
+          - name: laps
+            description: Number of laps completed
+          - name: time
+            description: Total sprint race time
+          - name: milliseconds
+            description: Total sprint race time in milliseconds
+          - name: fastestlap
+            description: Fastest lap number
+          - name: fastestlaptime
+            description: Fastest lap time
+          - name: statusid
+            description: Foreign key to status table
+
+      - name: status
+        description: Race/driver status codes (e.g., Finished, Retired, Accident)
+        columns:
+          - name: statusid
+            description: Unique identifier for the status
+            tests:
+              - unique
+              - not_null
+          - name: status
+            description: Status description
