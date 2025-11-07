@@ -1,37 +1,26 @@
-name: 'omd-dbt'
-version: '1.0.0'
+# dbt_project.yml
+name: omd_dbt                # <-- underscore, no hyphen
+version: 1.0.0
 config-version: 2
+profile: default             # <-- matches your profiles.yml
 
-profile: 'default'
-
-target-path: 'target'
-clean-targets:
-  - 'target'
-  - 'dbt_packages'
+# Quote schema because it has a hyphen
+quoting:
+  database: false            # catalog
+  schema: true               # needed for `dbt-omd`
+  identifier: false
 
 models:
-  omd-dbt:
-    staging:
-      +materialized: 'view'
-    intermediate:
-      +materialized: 'table'
-    marts:
-      +materialized: 'table'
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
-name: "vrt_datalake"
-version: "1.0.0"
-require-dbt-version: ">=1.7.0"
-config-version: 2
+  omd_dbt:                   # <-- must match `name:` above
+    +database: dtr_sandbox   # database == catalog
+    +schema: dbt-omd         # will be backtick-quoted
+    +materialized: view      # or table if you prefer
 
-
-# These configurations specify where dbt should look for different types of files.
-# The `source-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
-model-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-seed-paths: ["data"]
-macro-paths: ["macros"]
-snapshot-paths: ["snapshots"]
+    # If these cause CREATE on catalog (and you lack privileges), keep them commented
+    # until those schemas exist or you have grants.
+    # staging:
+    #   +schema: stg
+    # intermediate:
+    #   +schema: int
+    # marts:
+    #   +schema: mart

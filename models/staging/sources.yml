@@ -3,8 +3,8 @@ version: 2
 sources:
   - name: f1
     description: Formula 1 racing dataset containing historical race, driver, constructor, and circuit information
-    database: your_database_name  # Update this with your Databricks database name
-    schema: your_schema_name      # Update this with your Databricks schema name
+    database: dtr_sandbox
+    schema: dbt-omd
     tables:
       - name: circuits
         description: Formula 1 circuit information including location and geographical coordinates
