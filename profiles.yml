@@ -1,0 +1,13 @@
+pgdev:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: c-omd-dbt.b2coytsvhoqfhz.postgres.cosmos.azure.com
+      port: 5432
+      user: "{{ env_var('DBT_USER') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      dbname: omd
+      schema: public
+      threads: 4
+      sslmode: require
