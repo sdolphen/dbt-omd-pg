@@ -1,26 +1,24 @@
 # dbt_project.yml
-name: omd_dbt                # <-- underscore, no hyphen
+name: omd_dbt_pg
 version: 1.0.0
 config-version: 2
-profile: default             # <-- matches your profiles.yml
+profile: default
 
 # Quote schema because it has a hyphen
 quoting:
-  database: false            # catalog
-  schema: true               # needed for `dbt-omd`
+  database: false
+  schema: true
   identifier: false
 
 models:
-  omd_dbt:                   # <-- must match `name:` above
-    +database: dtr_sandbox   # database == catalog
-    +schema: dbt-omd         # will be backtick-quoted
-    +materialized: view      # or table if you prefer
+  omd_dbt:
+    +database: dtr_sandbox
+    +schema: dbt-omd-pg
+    +materialized: view
 
-    # If these cause CREATE on catalog (and you lack privileges), keep them commented
-    # until those schemas exist or you have grants.
-    # staging:
-    #   +schema: stg
-    # intermediate:
-    #   +schema: int
-    # marts:
-    #   +schema: mart
+    staging:
+       +schema: stg
+    intermediate:
+       +schema: int
+    marts:
+       +schema: mart

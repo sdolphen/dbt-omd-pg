@@ -1,10 +1,13 @@
-default:
+pgdev:
   target: dev
   outputs:
     dev:
-      type: databricks
-      host: adb-3020218199835395.15.azuredatabricks.net
-      http_path: /sql/1.0/warehouses/645d6cc8044bd264
-      token: "{{ env_var('DBT_DATABRICKS_TOKEN') }}"
-      schema: dbt-omd
+      type: postgres
+      host: c-omd-dbt.b2coytsvhoqfhz.postgres.cosmos.azure.com
+      port: 5432
+      user: "{{ env_var('DBT_USER') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      dbname: omd
+      schema: public
       threads: 4
+      sslmode: require
