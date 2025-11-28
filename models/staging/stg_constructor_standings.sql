@@ -1,19 +1,19 @@
 with source as (
 
-    select * from {{ source('f1', 'constructor_standings') }}
+    select * from {{ ref('constructor_standings') }}
 
 ),
 
 renamed as (
 
     select
-        constructorstandingsid as constructor_standings_id,
-        raceid as race_id,
-        constructorid as constructor_id,
-        points,
-        position,
-        positiontext as position_text,
-        wins
+        source."constructorStandingsId" as constructor_standings_id,
+        source."raceId" as race_id,
+        source."constructorId" as constructor_id,
+        source.points,
+        source.position,
+        source."positionText" as position_text,
+        source.wins
 
     from source
 

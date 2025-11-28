@@ -1,16 +1,16 @@
 with source as (
 
-    select * from {{ source('f1', 'constructor_results') }}
+    select * from {{ ref('constructor_results') }}
 
 ),
 
 renamed as (
 
     select
-        constructorresultsid as constructor_results_id,
-        raceid as race_id,
-        constructorid as constructor_id,
-        points,
+        source."constructorResultsId" as constructor_results_id,
+        source."raceId" as race_id,
+        source."constructorId" as constructor_id,
+        source.points,
         nullif(status, '\\N') as status
 
     from source

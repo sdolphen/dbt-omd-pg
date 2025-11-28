@@ -1,16 +1,16 @@
 with source as (
 
-    select * from {{ source('f1', 'races') }}
+    select * from {{ ref('races') }}
 
 ),
 
 renamed as (
 
     select
-        raceid as race_id,
+        source."raceId" as race_id,
         year as season_year,
         round as race_round,
-        circuitid as circuit_id,
+        source."circuitId" as circuit_id,
         name as race_name,
         date as race_date,
         nullif(time, '\\N') as race_time,

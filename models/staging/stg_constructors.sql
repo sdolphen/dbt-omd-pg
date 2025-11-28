@@ -1,14 +1,14 @@
 with source as (
 
-    select * from {{ source('f1', 'constructors') }}
+    select * from {{ ref('constructors') }}
 
 ),
 
 renamed as (
 
     select
-        constructorid as constructor_id,
-        constructorref as constructor_ref,
+        source."constructorId" as constructor_id,
+        source."constructorRef" as constructor_ref,
         name as constructor_name,
         nationality,
         url

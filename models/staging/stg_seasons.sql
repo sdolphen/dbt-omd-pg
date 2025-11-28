@@ -1,6 +1,6 @@
 with source as (
 
-    select * from {{ source('f1', 'seasons') }}
+    select * from {{ ref('seasons') }}
 
 ),
 

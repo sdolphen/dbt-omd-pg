@@ -1,14 +1,14 @@
 with source as (
 
-    select * from {{ source('f1', 'status') }}
+    select * from {{ ref('status') }}
 
 ),
 
 renamed as (
 
     select
-        statusid as status_id,
-        status as status_description
+        source."statusId" as status_id,
+        source."status" as status_description
 
     from source
 

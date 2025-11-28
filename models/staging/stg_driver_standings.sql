@@ -1,18 +1,18 @@
 with source as (
 
-    select * from {{ source('f1', 'driver_standings') }}
+    select * from {{ ref('driver_standings') }}
 
 ),
 
 renamed as (
 
     select
-        driverstandingsid as driver_standings_id,
-        raceid as race_id,
-        driverid as driver_id,
+        source."driverStandingsId" as driver_standings_id,
+        source."raceId" as race_id,
+        source."driverId" as driver_id,
         points,
         position,
-        positiontext as position_text,
+        source."positionText" as position_text,
         wins
 
     from source

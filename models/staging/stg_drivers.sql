@@ -1,14 +1,14 @@
 with source as (
 
-    select * from {{ source('f1', 'drivers') }}
+    select * from {{ ref('drivers') }}
 
 ),
 
 renamed as (
 
     select
-        driverid as driver_id,
-        driverref as driver_ref,
+        source."driverId" as driver_id,
+        source."driverRef" as driver_ref,
         number as driver_number,
         code as driver_code,
         forename,

@@ -1,16 +1,16 @@
 with source as (
 
-    select * from {{ source('f1', 'qualifying') }}
+    select * from {{ ref('qualifying') }}
 
 ),
 
 renamed as (
 
     select
-        qualifyid as qualify_id,
-        raceid as race_id,
-        driverid as driver_id,
-        constructorid as constructor_id,
+        source."qualifyId" as qualify_id,
+        source."raceId" as race_id,
+        source."driverId" as driver_id,
+        source."constructorId" as constructor_id,
         number as driver_number,
         position,
         nullif(q1, '\\N') as q1_time,
