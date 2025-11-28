@@ -2,7 +2,7 @@
 name: omd_dbt_pg
 version: 1.0.0
 config-version: 2
-profile: default
+profile: pgdev
 
 # Quote schema because it has a hyphen
 quoting:
@@ -12,8 +12,8 @@ quoting:
 
 models:
   omd_dbt:
-    +database: dtr_sandbox
-    +schema: dbt-omd-pg
+    +database: omd
+    +schema: dbt_dev
     +materialized: view
 
     staging:
@@ -22,3 +22,6 @@ models:
        +schema: int
     marts:
        +schema: mart
+
+seeds:
+  quote_columns: false

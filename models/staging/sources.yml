@@ -3,8 +3,8 @@ version: 2
 sources:
   - name: f1
     description: Formula 1 racing dataset containing historical race, driver, constructor, and circuit information
-    database: dtr_sandbox
-    schema: dbt-omd
+    database: omd
+    schema: dbt_dev
     tables:
       - name: circuits
         description: Formula 1 circuit information including location and geographical coordinates

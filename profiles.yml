@@ -8,6 +8,6 @@ pgdev:
       user: "{{ env_var('DBT_USER') }}"
       password: "{{ env_var('DBT_PASSWORD') }}"
       dbname: omd
-      schema: public
+      schema: dbt_dev
       threads: 4
       sslmode: require
