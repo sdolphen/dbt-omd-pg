@@ -93,9 +93,11 @@ enhanced as (
         
         -- Position changes
         case 
-            when sprint_results.finish_position is not null and sprint_results.grid_position is not null
+            when sprint_results.finish_position is not null 
+                and sprint_results.finish_position not in ('N', '\N')
+                and sprint_results.grid_position is not null
             then sprint_results.grid_position - cast(sprint_results.finish_position as int)
-            else null 
+            else null  
         end as positions_gained
 
     from sprint_results

@@ -105,7 +105,7 @@ enhanced as (
         -- Position changes
         case 
             when results.finish_position is not null and results.grid_position is not null
-            then results.grid_position - cast(results.finish_position as int)
+            then results.grid_position - results.finish_position
             else null 
         end as positions_gained
 
